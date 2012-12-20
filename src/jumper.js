@@ -7,7 +7,12 @@ define([
     constants
 
       ) {
+  'use strict'
 
+  /**
+   * @param {CanvasRenderingContext2D} ctx
+   * @constructor
+   */
   function Jumper (ctx) {
     this.ctx = ctx
   }
@@ -17,6 +22,14 @@ define([
     ,xY: 0
     ,x: 0
     ,y: constants.CANVAS_HEIGHT
+
+    ,_pushLeft: function () {
+      console.log('pushing left')
+    }
+
+    ,_pushRight: function () {
+      console.log('pushing right')
+    }
 
     ,draw: function () {
       var x = this.x
@@ -33,6 +46,16 @@ define([
       ctx.stroke()
       ctx.closePath()
     }
+
+    /**
+     * @param {string} direction Must be either 'left' or 'right'
+     */
+    ,push: function (direction) {
+      direction === 'left'
+        ? this._pushLeft()
+        : this._pushRight()
+    }
+
   }
 
   return Jumper

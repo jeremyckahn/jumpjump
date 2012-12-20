@@ -7,7 +7,7 @@ require([
     Game
 
       ) {
-
+  'use strict'
 
   new Game
 
