@@ -28,18 +28,14 @@ define([
     ,y: constants.CANVAS_HEIGHT
 
     ,_pushLeft: function (delta) {
-      var initialVX = this.vX
-
       this.vX = Math.max(
-          initialVX - (Jumper.X_ACCELERATION * delta),
+          this.vX - (Jumper.X_ACCELERATION * delta),
           -constants.JUMPER_MAX_X_VELOCITY)
     }
 
     ,_pushRight: function (delta) {
-      var initialVX = this.vX
-
       this.vX = Math.min(
-          initialVX + (Jumper.X_ACCELERATION * delta),
+          this.vX + (Jumper.X_ACCELERATION * delta),
           constants.JUMPER_MAX_X_VELOCITY)
     }
 
@@ -72,6 +68,8 @@ define([
       if (keysDown[constants.KEY_RIGHT] || keysDown[constants.KEY_L]) {
         this._pushRight(delta)
       }
+
+      this.x += this.vX
 
       this._draw()
     }
