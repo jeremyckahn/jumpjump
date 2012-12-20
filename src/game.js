@@ -17,6 +17,7 @@ define([
    */
   function Game () {
     var canvas = document.getElementById('jump')
+    this._keysDown = {}
     this._ctx = canvas.getContext('2d')
     this._initCanvas(canvas)
     this._initControls()
@@ -36,12 +37,23 @@ define([
 
     ,_initControls: function () {
       var body = document.body
+      body.addEventListener('keydown', _.bind(this._onKeyDown, this))
+      body.addEventListener('keyup', _.bind(this._onKeyUp, this))
+    }
+
+    ,_onKeyDown: function (evt) {
+      this._keysDown[evt.keyCode] = true
+    }
+
+    ,_onKeyUp: function (evt) {
+      delete this._keysDown[evt.keyCode]
     }
 
     ,_tick: function () {
       webkitRequestAnimationFrame(_.bind(this._tick, this))
-      this._ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT)
-      this._jumper.draw()
+      this._ctx.clearRect(0, 0,
+          constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT)
+      this._jumper.tick(this._keysDown)
     }
 
   }
