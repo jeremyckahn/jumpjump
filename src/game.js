@@ -11,9 +11,11 @@ define([
       ) {
 
 
-  function Game (ctx) {
-    this.ctx = ctx
-    this.jumper = new Jumper(ctx)
+  function Game () {
+    var canvas = document.getElementById('jump')
+    this.ctx = canvas.getContext('2d')
+    this.decorateCanvas(canvas)
+    this.jumper = new Jumper(this.ctx)
     this.tick()
   }
 
@@ -25,6 +27,14 @@ define([
       var ctx = this.ctx
       ctx.clearRect(0, 0, constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT)
       this.jumper.draw()
+    }
+
+    ,decorateCanvas: function (canvas) {
+      canvas.height = constants.CANVAS_HEIGHT
+      canvas.width = constants.CANVAS_WIDTH
+      canvas.style.height = constants.CANVAS_HEIGHT + 'px'
+      canvas.style.width = constants.CANVAS_WIDTH + 'px'
+      canvas.style.background = constants.BACKGROUND_COLOR
     }
 
   }
