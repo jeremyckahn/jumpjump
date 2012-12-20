@@ -23,15 +23,6 @@ define([
     ,x: 0
     ,y: constants.CANVAS_HEIGHT
 
-    /**
-     * @param {string} direction Must be either 'left' or 'right'
-     */
-    ,_push: function (direction) {
-      direction === 'left'
-        ? this._pushLeft()
-        : this._pushRight()
-    }
-
     ,_pushLeft: function () {
       console.log('pushing left')
     }
@@ -60,6 +51,15 @@ define([
      * @param {Object} keysDown Map of currently pressed keys
      */
     ,tick: function (keysDown) {
+
+      if (keysDown[constants.KEY_LEFT] || keysDown[constants.KEY_H]) {
+        this._pushLeft()
+      }
+
+      if (keysDown[constants.KEY_RIGHT] || keysDown[constants.KEY_L]) {
+        this._pushRight()
+      }
+
       this._draw()
     }
 
