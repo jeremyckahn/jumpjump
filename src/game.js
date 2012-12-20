@@ -12,6 +12,11 @@ define([
   'use strict'
 
 
+  function now () {
+    return +(new Date)
+  }
+
+
   /**
    * @constructor
    */
@@ -21,6 +26,7 @@ define([
     this._ctx = canvas.getContext('2d')
     this._initCanvas(canvas)
     this._initControls()
+    this._timestamp = now()
     this._jumper = new Jumper(this._ctx)
     this._tick()
   }
@@ -51,9 +57,14 @@ define([
 
     ,_tick: function () {
       webkitRequestAnimationFrame(_.bind(this._tick, this))
+
+      var currentTime = now()
+      var delta = currentTime - this._timestamp
+      this._timestamp = currentTime
+
       this._ctx.clearRect(0, 0,
           constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT)
-      this._jumper.tick(this._keysDown)
+      this._jumper.tick(delta, this._keysDown)
     }
 
   }

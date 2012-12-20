@@ -8,6 +8,10 @@ define(function () {
     ,JUMPER_COLOR: '#f0f'
     ,JUMPER_HEIGHT: 50
     ,JUMPER_WIDTH: 50
+    ,JUMPER_MASS: 70
+    ,JUMPER_PUSH_FORCE: 8
+    ,JUMPER_MAX_X_VELOCITY: 40
+    ,JUMPER_ACCELERATION_X: 15
     ,KEY_SPACE: 32
     ,KEY_LEFT: 37
     ,KEY_UP: 38
