@@ -27,16 +27,61 @@ define([
     ,x: 0
     ,y: constants.CANVAS_HEIGHT
 
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     */
     ,_pushLeft: function (delta) {
       this.vX = Math.max(
           this.vX - (Jumper.X_ACCELERATION * delta),
           -constants.JUMPER_MAX_X_VELOCITY)
     }
 
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     */
     ,_pushRight: function (delta) {
       this.vX = Math.min(
           this.vX + (Jumper.X_ACCELERATION * delta),
           constants.JUMPER_MAX_X_VELOCITY)
+    }
+
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     */
+    ,_applyHorizontalDeceleration: function (delta) {
+      var isMovingRight = this.vX > 0
+      var absoluteVelocity = Math.abs(this.vX)
+
+      var deceleratedAbsoluteVelocity = Math.max(
+          absoluteVelocity - (Jumper.X_ACCELERATION * delta), 0)
+
+      this.vX = isMovingRight
+        ? deceleratedAbsoluteVelocity
+        : deceleratedAbsoluteVelocity * -1
+    }
+
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     * @param {Object} keysDown Map of currently pressed keys
+     */
+    ,_applyHorizontalForce: function (delta, keysDown) {
+      var isBeingPushed = false
+
+      if (keysDown[constants.KEY_LEFT] || keysDown[constants.KEY_H]) {
+        this._pushLeft(delta)
+        isBeingPushed = true
+      }
+
+      if (keysDown[constants.KEY_RIGHT] || keysDown[constants.KEY_L]) {
+        this._pushRight(delta)
+        isBeingPushed = true
+      }
+
+      if (!isBeingPushed && this.vX !== 0) {
+        this._applyHorizontalDeceleration(delta)
+      }
+
+      this.x += this.vX
     }
 
     ,_draw: function () {
@@ -60,17 +105,7 @@ define([
      * @param {Object} keysDown Map of currently pressed keys
      */
     ,tick: function (delta, keysDown) {
-
-      if (keysDown[constants.KEY_LEFT] || keysDown[constants.KEY_H]) {
-        this._pushLeft(delta)
-      }
-
-      if (keysDown[constants.KEY_RIGHT] || keysDown[constants.KEY_L]) {
-        this._pushRight(delta)
-      }
-
-      this.x += this.vX
-
+      this._applyHorizontalForce(delta, keysDown)
       this._draw()
     }
 
