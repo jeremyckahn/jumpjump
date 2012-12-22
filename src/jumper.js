@@ -28,6 +28,25 @@ define([
     ,y: constants.CANVAS_HEIGHT
 
     /**
+     * Calculate how much the Jumper will be out of bounds given the current
+     * horizontal velocity and current X value.
+     * @return {number} Positive is Jumper will be too far to the right,
+     * negative if too far to the left, 0 if within bounds.
+     */
+    ,_getProjectedBoundsOverage: function () {
+      var projectedX = this.x + this.vX
+      var projectedRightEdge = projectedX + constants.JUMPER_WIDTH
+
+      if (projectedX < 0) {
+        return projectedX
+      } else if (projectedRightEdge > constants.CANVAS_WIDTH) {
+        return projectedRightEdge - constants.CANVAS_WIDTH
+      }
+
+      return 0
+    }
+
+    /**
      * @param {number} delta Number of milliseconds since last tick
      */
     ,_pushLeft: function (delta) {
@@ -81,7 +100,13 @@ define([
         this._applyHorizontalDeceleration(delta)
       }
 
-      this.x += this.vX
+      var projectedBoundsOverage = this._getProjectedBoundsOverage()
+
+      if (projectedBoundsOverage !== 0) {
+        this.vX *= -1
+      }
+
+      this.x += this.vX - projectedBoundsOverage
     }
 
     ,_draw: function () {
