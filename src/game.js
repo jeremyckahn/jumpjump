@@ -1,20 +1,23 @@
 define([
 
     'src/constants'
+    ,'src/util'
+    ,'src/background'
+    ,'src/drawable'
     ,'src/jumper'
+    ,'src/viewport'
 
     ], function (
 
     constants
+    ,util
+    ,Background
+    ,Drawable
     ,Jumper
+    ,Viewport
 
       ) {
   'use strict'
-
-
-  function now () {
-    return +(new Date)
-  }
 
 
   /**
@@ -23,11 +26,14 @@ define([
   function Game () {
     var canvas = document.getElementById('jump')
     this._keysDown = {}
+    this._lockedKeys = {}
     this._ctx = canvas.getContext('2d')
     this._initCanvas(canvas)
     this._initControls()
-    this._timestamp = now()
-    this._jumper = new Jumper(this._ctx)
+    this._timestamp = util.now()
+    this._background = new Background(this, this._ctx)
+    this._jumper = new Jumper(this, this._ctx)
+    this._viewport = new Viewport
     this._tick()
   }
 
@@ -45,6 +51,7 @@ define([
       var body = document.body
       body.addEventListener('keydown', _.bind(this._onKeyDown, this))
       body.addEventListener('keyup', _.bind(this._onKeyUp, this))
+      window.addEventListener('blur', _.bind(this._onWindowBlur, this))
     }
 
     ,_onKeyDown: function (evt) {
@@ -53,18 +60,43 @@ define([
 
     ,_onKeyUp: function (evt) {
       delete this._keysDown[evt.keyCode]
+      delete this._lockedKeys[evt.keyCode]
+    }
+
+    ,_onWindowBlur: function (evt) {
+      this._keysDown = {}
+      this._lockedKeys = {}
     }
 
     ,_tick: function () {
       webkitRequestAnimationFrame(_.bind(this._tick, this))
 
-      var currentTime = now()
-      var delta = currentTime - this._timestamp
-      this._timestamp = currentTime
+      var now = util.now()
+      var delta = now - this._timestamp
+      this._timestamp = now
 
-      this._ctx.clearRect(0, 0,
-          constants.CANVAS_WIDTH, constants.CANVAS_HEIGHT)
+      this._background.tick()
       this._jumper.tick(delta, this._keysDown)
+      this._viewport.tick(this._jumper)
+
+      Drawable.applyViewPort(this._viewport)
+      this._draw()
+      Drawable.unapplyViewPort(this._viewport)
+    }
+
+    ,_draw: function () {
+      var viewport = this._viewport
+
+      this._background.draw(viewport)
+      this._jumper.draw()
+    }
+
+    ,isKeyLocked: function (keyCode) {
+      return !!this._lockedKeys[keyCode]
+    }
+
+    ,lockKey: function (keyCode) {
+      this._lockedKeys[keyCode] = true
     }
 
   }

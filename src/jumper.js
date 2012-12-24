@@ -1,31 +1,48 @@
 define([
 
     'src/constants'
+    ,'src/util'
+    ,'src/shapes'
+    ,'src/drawable'
 
     ], function (
 
     constants
+    ,util
+    ,shapes
+    ,Drawable
 
       ) {
   'use strict'
 
   /**
+   * @param {Game} game
    * @param {CanvasRenderingContext2D} ctx
    * @constructor
+   * @extends {Drawable}
    */
-  function Jumper (ctx) {
-    this.ctx = ctx
-  }
+  function Jumper (game, ctx) {
+    this._game = game
+    this._ctx = ctx
+    this._height = constants.JUMPER_HEIGHT
+    this._width = constants.JUMPER_WIDTH
 
+    util.createGetters(this, ['_vX', '_vY', '_color'])
+    Drawable.call(this)
+  }
+  util.inherit(Jumper, Drawable)
+
+  // STATIC PROPERTIES
   _.extend(Jumper, {
     X_ACCELERATION: constants.JUMPER_PUSH_FORCE / constants.JUMPER_MASS
   })
 
-  Jumper.prototype = {
-    vX: 0
-    ,vY: 0
-    ,x: 0
-    ,y: constants.CANVAS_HEIGHT
+  // PROTOTYPE PROPERTIES
+  _.extend(Jumper.prototype, {
+    _vX: 0
+    ,_vY: 0
+    ,_color: constants.JUMPER_COLOR
+    ,_jumpTimestamp: 0
 
     /**
      * Calculate how much the Jumper will be out of bounds given the current
@@ -34,8 +51,8 @@ define([
      * negative if too far to the left, 0 if within bounds.
      */
     ,_getProjectedBoundsOverage: function () {
-      var projectedX = this.x + this.vX
-      var projectedRightEdge = projectedX + constants.JUMPER_WIDTH
+      var projectedX = this._x + this._vX
+      var projectedRightEdge = projectedX + this._width
 
       if (projectedX < 0) {
         return projectedX
@@ -50,8 +67,8 @@ define([
      * @param {number} delta Number of milliseconds since last tick
      */
     ,_pushLeft: function (delta) {
-      this.vX = Math.max(
-          this.vX - (Jumper.X_ACCELERATION * delta),
+      this._vX = Math.max(
+          this._vX - (Jumper.X_ACCELERATION * delta),
           -constants.JUMPER_MAX_X_VELOCITY)
     }
 
@@ -59,8 +76,8 @@ define([
      * @param {number} delta Number of milliseconds since last tick
      */
     ,_pushRight: function (delta) {
-      this.vX = Math.min(
-          this.vX + (Jumper.X_ACCELERATION * delta),
+      this._vX = Math.min(
+          this._vX + (Jumper.X_ACCELERATION * delta),
           constants.JUMPER_MAX_X_VELOCITY)
     }
 
@@ -68,15 +85,55 @@ define([
      * @param {number} delta Number of milliseconds since last tick
      */
     ,_applyHorizontalDeceleration: function (delta) {
-      var isMovingRight = this.vX > 0
-      var absoluteVelocity = Math.abs(this.vX)
+      var isMovingRight = this._vX > 0
+      var absoluteVelocity = Math.abs(this._vX)
 
       var deceleratedAbsoluteVelocity = Math.max(
           absoluteVelocity - (Jumper.X_ACCELERATION * delta), 0)
 
-      this.vX = isMovingRight
+      this._vX = isMovingRight
         ? deceleratedAbsoluteVelocity
         : deceleratedAbsoluteVelocity * -1
+    }
+
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     */
+    ,_applyGravity: function (delta) {
+      this._vY = Math.max(
+          this._vY - (constants.GRAVITY_ACCELERATION * delta),
+          -constants.JUMPER_TERMINAL_VELOCITY)
+    }
+
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     */
+    ,_applyJumpForce: function (delta) {
+      if (this._game.isKeyLocked(constants.KEY_SPACE)) {
+        return
+      }
+
+      var now = util.now()
+      this._jumpTimestamp = now
+      this._game.lockKey(constants.KEY_SPACE)
+
+      this._vY = Math.min(
+          this._vY + (constants.JUMPER_JUMP_FORCE * delta),
+          constants.JUMPER_MAX_JUMP_VELOCITY)
+    }
+
+    /**
+     * @param {number} delta Number of milliseconds since last tick
+     * @param {Object} keysDown Map of currently pressed keys
+     */
+    ,_applyVerticalForce: function (delta, keysDown) {
+      if (keysDown[constants.KEY_SPACE]) {
+        this._applyJumpForce(delta)
+      }
+
+      this._applyGravity(delta)
+
+      this._y = Math.max(this._y + this._vY, 0)
     }
 
     /**
@@ -96,33 +153,19 @@ define([
         isBeingPushed = true
       }
 
-      if (!isBeingPushed && this.vX !== 0) {
+      if (!isBeingPushed && this._vX !== 0) {
         this._applyHorizontalDeceleration(delta)
       }
 
       var projectedBoundsOverage = this._getProjectedBoundsOverage()
 
       if (projectedBoundsOverage !== 0) {
-        this.vX *= -1
+        this._x = projectedBoundsOverage > 0
+          ? constants.CANVAS_WIDTH - this._width
+          : 0
+      } else {
+        this._x += this._vX
       }
-
-      this.x += this.vX - projectedBoundsOverage
-    }
-
-    ,_draw: function () {
-      var x = this.x
-      var y = this.y
-      var ctx = this.ctx
-
-      ctx.beginPath()
-      ctx.moveTo(x, y - constants.JUMPER_HEIGHT)
-      ctx.lineTo(x, y)
-      ctx.lineTo(x + constants.JUMPER_WIDTH, y)
-      ctx.lineTo(x + constants.JUMPER_WIDTH, y - constants.JUMPER_HEIGHT)
-      ctx.fillStyle = ctx.strokeStyle = constants.JUMPER_COLOR
-      ctx.fill()
-      ctx.stroke()
-      ctx.closePath()
     }
 
     /**
@@ -131,10 +174,15 @@ define([
      */
     ,tick: function (delta, keysDown) {
       this._applyHorizontalForce(delta, keysDown)
-      this._draw()
+      this._applyVerticalForce(delta, keysDown)
     }
 
-  }
+    ,draw: function () {
+      shapes.square(this._ctx, this._color, this._x,
+          constants.CANVAS_HEIGHT - this._y, this._height, this._width)
+    }
+
+  })
 
   return Jumper
 

@@ -9,6 +9,6 @@ require([
       ) {
   'use strict'
 
-  new Game
+  console.log(new Game)
 
 });
