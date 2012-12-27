@@ -32,4 +32,11 @@ define(['exports'], function (util) {
     })
   }
 
+  util.getSampleMapData = function () {
+    return [
+       [1, 0, 0, 0, 0, 0, 0, 0]
+      ,[0, 0, 0, 0, 0, 0, 0, 0]
+    ]
+  }
+
 });

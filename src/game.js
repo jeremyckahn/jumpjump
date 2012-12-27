@@ -6,6 +6,8 @@ define([
     ,'src/drawable'
     ,'src/jumper'
     ,'src/viewport'
+    ,'src/tile-builder'
+    ,'src/tile-default-renderers'
 
     ], function (
 

@@ -46,6 +46,14 @@ define([
     ,_width: 0
 
     /**
+     * @abstract
+     */
+    ,draw: function () {
+      console.warn(
+          'Calling Drawable#draw. You probably meant to override this.')
+    }
+
+    /**
      * @param {Viewport} viewport
      */
     ,_applyViewportOffset: function (viewport) {

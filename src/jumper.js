@@ -177,6 +177,9 @@ define([
       this._applyVerticalForce(delta, keysDown)
     }
 
+    /**
+     * @override
+     */
     ,draw: function () {
       shapes.square(this._ctx, this._color, this._x,
           constants.CANVAS_HEIGHT - this._y, this._height, this._width)
