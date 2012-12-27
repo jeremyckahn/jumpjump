@@ -22,13 +22,15 @@ define([
    * @extends {Drawable}
    */
   function Jumper (game, ctx) {
+    Drawable.call(this)
+    this._vX = 0
+    this._vY = 0
+    this._color = constants.JUMPER_COLOR
     this._game = game
     this._ctx = ctx
-    this._height = constants.JUMPER_HEIGHT
-    this._width = constants.JUMPER_WIDTH
+    this.setHeight(constants.JUMPER_HEIGHT)
+    this.setWidth(constants.JUMPER_WIDTH)
 
-    util.createGetters(this, ['_vX', '_vY', '_color'])
-    Drawable.call(this)
   }
   util.inherit(Jumper, Drawable)
 
@@ -39,10 +41,7 @@ define([
 
   // PROTOTYPE PROPERTIES
   _.extend(Jumper.prototype, {
-    _vX: 0
-    ,_vY: 0
-    ,_color: constants.JUMPER_COLOR
-    ,_jumpTimestamp: 0
+    _jumpTimestamp: 0
 
     /**
      * Calculate how much the Jumper will be out of bounds given the current
@@ -182,10 +181,12 @@ define([
      */
     ,draw: function () {
       shapes.square(this._ctx, this._color, this._x,
-          constants.CANVAS_HEIGHT - this._y, this._height, this._width)
+          constants.CANVAS_HEIGHT - this._y, this.getHeight(), this.getWidth())
     }
 
   })
+
+  util.createGetters(Jumper.prototype, ['_vX', '_vY', '_color'])
 
   return Jumper
 

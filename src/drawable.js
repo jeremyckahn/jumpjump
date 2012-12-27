@@ -18,9 +18,10 @@ define([
    */
   function Drawable () {
     drawables.push(this)
-    var accessorList = ['_x', '_y', '_height', '_width']
-    util.createGetters(this, accessorList)
-    util.createSetters(this, accessorList)
+    this._x = 0
+    this._y = 0
+    this._height = 0
+    this._width = 0
   }
 
   /**
@@ -42,15 +43,10 @@ define([
   }
 
   Drawable.prototype = {
-    _x: 0
-    ,_y: 0
-    ,_height: 0
-    ,_width: 0
-
     /**
      * @abstract
      */
-    ,draw: function () {
+    draw: function () {
       console.warn(
           'Calling Drawable#draw. You probably meant to override this.')
     }
@@ -69,6 +65,10 @@ define([
       this._y += viewport.getYOffset()
     }
   }
+
+  var accessorList = ['_x', '_y', '_height', '_width']
+  util.createGetters(Drawable.prototype, accessorList)
+  util.createSetters(Drawable.prototype, accessorList)
 
   return Drawable
 

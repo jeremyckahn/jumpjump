@@ -31,7 +31,7 @@ define(['exports'], function (util) {
   util.createGetters = function (object, properties) {
     properties.forEach(function (property) {
       object[buildPublicName(property, 'get')] = function () {
-        return object[property]
+        return this[property]
       }
     })
   }
@@ -43,7 +43,7 @@ define(['exports'], function (util) {
   util.createSetters = function (object, properties) {
     properties.forEach(function (property) {
       object[buildPublicName(property, 'set')] = function (val) {
-        object[property] = val
+        this[property] = val
       }
     })
   }
