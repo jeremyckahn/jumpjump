@@ -2,10 +2,10 @@ define(['exports'], function (util) {
   'use strict'
 
   /**
-   * @param {string} propertyName
    * @param {string} getOrSet Must be either 'get' or 'set'
+   * @param {string} propertyName
    */
-  function buildPublicName (propertyName, getOrSet) {
+  function buildPublicName (getOrSet, propertyName) {
     return getOrSet + propertyName[1].toUpperCase() + propertyName.slice(2)
   }
 
@@ -30,7 +30,7 @@ define(['exports'], function (util) {
    */
   util.createGetters = function (object, properties) {
     properties.forEach(function (property) {
-      object[buildPublicName(property, 'get')] = function () {
+      object[buildPublicName('get', property)] = function () {
         return this[property]
       }
     })
@@ -42,7 +42,7 @@ define(['exports'], function (util) {
    */
   util.createSetters = function (object, properties) {
     properties.forEach(function (property) {
-      object[buildPublicName(property, 'set')] = function (val) {
+      object[buildPublicName('set', property)] = function (val) {
         this[property] = val
       }
     })
