@@ -7,6 +7,7 @@ define([
     Drawable
 
     ) {
+  'use strict'
 
   /**
    * @type {number}
@@ -14,7 +15,11 @@ define([
   var TileCode
 
   /**
-   * @type {Array.<Array.<TileCode>>}
+   * @type {{
+   *   tileHeight: number,
+   *   tileWidth: number,
+   *   map: Array.<Array.<TileCode>>
+   * }}
    */
   var TileMap
 
@@ -31,19 +36,21 @@ define([
   function TileRenderer (tileMap, tileRenderers) {
     var tiles = []
 
-    tileMap.forEach(function (row) {
+    tileMap.map.forEach(function (row) {
       row.forEach(function (tileCode) {
         // NOTE: One could make a Tile Object (which would inherit from
         // Drawable) instead of decorating Drawable instances, but that may be
         // OOP overkill.
         var drawable = new Drawable
         drawable.draw = tileRenderers[tileCode]
+        drawable.setHeight(tileMap.tileHeight)
+        drawable.setWidth(tileMap.tileWidth)
         tiles.push(drawable)
       })
-
-      /** @type {Array.<Drawable>} */
-      this._drawables = tiles
     })
+
+    /** @type {Array.<Drawable>} */
+    this._drawables = tiles
   }
 
   return TileRenderer

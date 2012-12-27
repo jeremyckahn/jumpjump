@@ -18,7 +18,9 @@ define([
    */
   function Drawable () {
     drawables.push(this)
-    util.createGetters(this, ['_x', '_y', '_height', '_width'])
+    var accessorList = ['_x', '_y', '_height', '_width']
+    util.createGetters(this, accessorList)
+    util.createSetters(this, accessorList)
   }
 
   /**

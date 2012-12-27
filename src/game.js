@@ -17,6 +17,8 @@ define([
     ,Drawable
     ,Jumper
     ,Viewport
+    ,TileBuilder
+    ,tileDefaultRenderers
 
       ) {
   'use strict'
@@ -36,6 +38,9 @@ define([
     this._background = new Background(this, this._ctx)
     this._jumper = new Jumper(this, this._ctx)
     this._viewport = new Viewport
+    // TODO: Put this somewhere more reasonable - this is just a test.
+    this._tileBuilder =
+        new TileBuilder(util.getSampleMapData(), tileDefaultRenderers)
     this._tick()
   }
 

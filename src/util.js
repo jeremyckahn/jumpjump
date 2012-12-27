@@ -1,8 +1,12 @@
 define(['exports'], function (util) {
   'use strict'
 
-  function buildPublicName (propertyName) {
-    return 'get' + propertyName[1].toUpperCase() + propertyName.slice(2)
+  /**
+   * @param {string} propertyName
+   * @param {string} getOrSet Must be either 'get' or 'set'
+   */
+  function buildPublicName (propertyName, getOrSet) {
+    return getOrSet + propertyName[1].toUpperCase() + propertyName.slice(2)
   }
 
   util.now = function () {
@@ -26,17 +30,32 @@ define(['exports'], function (util) {
    */
   util.createGetters = function (object, properties) {
     properties.forEach(function (property) {
-      object[buildPublicName(property)] = function () {
+      object[buildPublicName(property, 'get')] = function () {
         return object[property]
       }
     })
   }
 
+  /**
+   * @param {Object} object
+   * @param {Array.<string>} properties
+   */
+  util.createSetters = function (object, properties) {
+    properties.forEach(function (property) {
+      object[buildPublicName(property, 'set')] = function (val) {
+        object[property] = val
+      }
+    })
+  }
+
   util.getSampleMapData = function () {
-    return [
-       [1, 0, 0, 0, 0, 0, 0, 0]
-      ,[0, 0, 0, 0, 0, 0, 0, 0]
-    ]
+    return {
+      tileHeight: 20
+      ,tileWidth: 15
+      ,map:
+      [[1, 0, 0, 0, 0, 0, 0, 0]
+      ,[0, 0, 0, 0, 0, 0, 0, 0]]
+    }
   }
 
 });
