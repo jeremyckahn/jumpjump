@@ -67,8 +67,7 @@ define([
   }
 
   var accessorList = ['_x', '_y', '_height', '_width']
-  util.createGetters(Drawable.prototype, accessorList)
-  util.createSetters(Drawable.prototype, accessorList)
+  util.createAccessors(Drawable.prototype, accessorList)
 
   return Drawable
 

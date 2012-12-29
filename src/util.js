@@ -48,6 +48,15 @@ define(['exports'], function (util) {
     })
   }
 
+  /**
+   * @param {Object} object
+   * @param {Array.<string>} properties
+   */
+  util.createAccessors = function (object, properties) {
+    util.createGetters(object, properties)
+    util.createSetters(object, properties)
+  }
+
   util.getSampleMapData = function () {
     return {
       tileHeight: 20
