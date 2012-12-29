@@ -82,12 +82,12 @@ define([
     }
 
     /**
-     * @param {number=} opt_delta This is provided by
+     * @param {number=} opt_timeSinceStart This is provided by
      * webkitRequestAnimationFrame.
      * @param {number=} opt_pauseOffset The number of milliseconds to offset
      * the delta calculation.
      */
-    ,_tick: function (opt_delta, opt_pauseOffset) {
+    ,_tick: function (opt_timeSinceStart, opt_pauseOffset) {
       if (!this._isPaused) {
         webkitRequestAnimationFrame(_.bind(this._tick, this))
       }
