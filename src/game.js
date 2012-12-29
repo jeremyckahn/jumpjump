@@ -83,7 +83,8 @@ define([
 
     /**
      * @param {number=} opt_timeSinceStart This is provided by
-     * webkitRequestAnimationFrame.
+     * webkitRequestAnimationFrame.  This is a throwaway value that doesn't get
+     * used (due to poor browser support).
      * @param {number=} opt_pauseOffset The number of milliseconds to offset
      * the delta calculation.
      */
