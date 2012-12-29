@@ -25,6 +25,7 @@ define(function () {
     ,KEY_J: 74
     ,KEY_K: 75
     ,KEY_L: 76
+    ,KEY_P: 80
     ,BACKGROUND_IMAGE_URL: 'img/noise_bg.png'
     ,BACKGROUND_IMAGE_TILE_HEIGHT: 200
     ,BACKGROUND_IMAGE_TILE_WIDTH: 200

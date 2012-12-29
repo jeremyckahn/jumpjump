@@ -31,6 +31,7 @@ define([
     var canvas = document.getElementById('jump')
     this._keysDown = {}
     this._lockedKeys = {}
+    this._isPaused = false
     this._ctx = canvas.getContext('2d')
     this._initCanvas(canvas)
     this._initControls()
@@ -68,6 +69,10 @@ define([
     ,_onKeyUp: function (evt) {
       delete this._keysDown[evt.keyCode]
       delete this._lockedKeys[evt.keyCode]
+
+      if (evt.keyCode === constants.KEY_P) {
+        this.togglePause()
+      }
     }
 
     ,_onWindowBlur: function (evt) {
@@ -76,7 +81,9 @@ define([
     }
 
     ,_tick: function () {
-      webkitRequestAnimationFrame(_.bind(this._tick, this))
+      if (!this._isPaused) {
+        webkitRequestAnimationFrame(_.bind(this._tick, this))
+      }
 
       var now = util.now()
       var delta = now - this._timestamp
@@ -96,6 +103,14 @@ define([
 
       this._background.draw(viewport)
       this._jumper.draw()
+    }
+
+    ,togglePause: function () {
+      this._isPaused = !this._isPaused
+
+      if (!this._isPaused) {
+        this._tick()
+      }
     }
 
     ,isKeyLocked: function (keyCode) {
