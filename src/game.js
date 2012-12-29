@@ -31,11 +31,12 @@ define([
     var canvas = document.getElementById('jump')
     this._keysDown = {}
     this._lockedKeys = {}
-    this._isPaused = false
     this._ctx = canvas.getContext('2d')
     this._initCanvas(canvas)
     this._initControls()
     this._timestamp = util.now()
+    this._pauseTimestamp = 0
+    this._isPaused = false
     this._background = new Background(this, this._ctx)
     this._jumper = new Jumper(this, this._ctx)
     this._viewport = new Viewport
@@ -80,13 +81,20 @@ define([
       this._lockedKeys = {}
     }
 
-    ,_tick: function () {
+    /**
+     * @param {number=} opt_delta This is provided by
+     * webkitRequestAnimationFrame.
+     * @param {number=} opt_pauseOffset The number of milliseconds to offset
+     * the delta calculation.
+     */
+    ,_tick: function (opt_delta, opt_pauseOffset) {
       if (!this._isPaused) {
         webkitRequestAnimationFrame(_.bind(this._tick, this))
       }
 
+      var pauseOffset = opt_pauseOffset || 0
       var now = util.now()
-      var delta = now - this._timestamp
+      var delta = now - this._timestamp - pauseOffset
       this._timestamp = now
 
       this._background.tick()
@@ -109,7 +117,9 @@ define([
       this._isPaused = !this._isPaused
 
       if (!this._isPaused) {
-        this._tick()
+        this._tick(null, util.now() - this._pauseTimestamp)
+      } else {
+        this._pauseTimestamp = util.now()
       }
     }
 
