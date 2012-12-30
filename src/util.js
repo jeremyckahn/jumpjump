@@ -73,13 +73,13 @@ define([
    */
   util.getSampleMapData = function () {
     return {
-      tileHeight: 20
-      ,tileWidth: 15
+      tileOffset: 20
+      ,tileHeight: 5
+      ,tileWidth: 25
       ,tileRenderers: tileDefaultRenderers
       ,map:
-      [[1, 1, 0, 0, 0, 0, 0, 0]
-      ,[0, 0, 0, 0, 0, 0, 0, 0]
-      ,[0, 0, 0, 0, 0, 0, 0, 0]]
+        [[1, 1, 0, 0, 0, 0, 0, 0]
+        ,[0, 0, 0, 0, 0, 0, 0, 0]]
     }
   }
 
