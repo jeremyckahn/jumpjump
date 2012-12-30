@@ -1,4 +1,14 @@
-define(['exports'], function (util) {
+define([
+
+    'exports'
+    ,'src/tile-default-renderers'
+
+  ], function (
+
+    util
+    ,tileDefaultRenderers
+
+  ) {
   'use strict'
 
   /**
@@ -57,10 +67,15 @@ define(['exports'], function (util) {
     util.createSetters(object, properties)
   }
 
+  /**
+   * Development utility method.
+   * @return {TileMap}
+   */
   util.getSampleMapData = function () {
     return {
       tileHeight: 20
       ,tileWidth: 15
+      ,tileRenderers: tileDefaultRenderers
       ,map:
       [[1, 1, 0, 0, 0, 0, 0, 0]
       ,[0, 0, 0, 0, 0, 0, 0, 0]

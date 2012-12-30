@@ -18,6 +18,7 @@ define([
    * @type {{
    *   tileHeight: number,
    *   tileWidth: number,
+   *   tileRenderers: TileRenderers
    *   map: Array.<Array.<TileCode>>
    * }}
    */
@@ -31,10 +32,9 @@ define([
   /**
    * @param {CanvasRenderingContext2D} ctx
    * @param {TileMap} tileMap
-   * @param {TileRenderers} tileRenderers
    * @constructor
    */
-  function TileRenderer (ctx, tileMap, tileRenderers) {
+  function TileRenderer (ctx, tileMap) {
     var tiles = []
 
     tileMap.map.reverse().forEach(function (row, y) {
@@ -44,7 +44,7 @@ define([
         // OOP overkill.
         var drawable = new Drawable(ctx)
 
-        drawable.draw = tileRenderers[tileCode]
+        drawable.draw = tileMap.tileRenderers[tileCode]
         drawable.setHeight(tileMap.tileHeight)
         drawable.setWidth(tileMap.tileWidth)
         drawable.setX(tileMap.tileWidth * x)
