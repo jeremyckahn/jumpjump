@@ -37,7 +37,7 @@ define([
   function TileRenderer (ctx, tileMap, tileRenderers) {
     var tiles = []
 
-    tileMap.map.forEach(function (row, y) {
+    tileMap.map.reverse().forEach(function (row, y) {
       row.forEach(function (tileCode, x) {
         // NOTE: One could make a Tile Object (which would inherit from
         // Drawable) instead of decorating Drawable instances, but that may be
