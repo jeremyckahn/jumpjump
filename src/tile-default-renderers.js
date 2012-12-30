@@ -1,10 +1,12 @@
 define([
 
-    'src/shapes'
+    'src/constants'
+    ,'src/shapes'
 
   ], function (
 
-    shapes
+    constants
+    ,shapes
 
   ) {
   tileRenderers = {
@@ -12,7 +14,8 @@ define([
     '0': function () {}
 
     ,'1': function () {
-      // TODO: Render a platform here
+      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,
+          constants.CANVAS_HEIGHT - this._y, this.getHeight(), this.getWidth())
     }
 
   }
