@@ -40,7 +40,6 @@ define([
              drawable2.getTop() > drawable1._y ||
              drawable2._y < drawable1.getTop())
     }
-
   })
 
   /**

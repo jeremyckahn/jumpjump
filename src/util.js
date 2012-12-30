@@ -73,8 +73,7 @@ define([
    */
   util.getSampleMapData = function () {
     return {
-      tileOffset: 20
-      ,tileHeight: 5
+      tileHeight: 25
       ,tileWidth: 25
       ,tileRenderers: tileDefaultRenderers
       ,map:

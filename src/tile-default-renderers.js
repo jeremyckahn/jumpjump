@@ -14,8 +14,10 @@ define([
     '0': function () {}
 
     ,'1': function () {
-      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x, this._y,
-        this.getHeight(), this.getWidth())
+      var platformWidth = 5
+
+      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,
+        this._y - platformWidth, this.getWidth(), platformWidth)
     }
 
   }

@@ -16,10 +16,10 @@ define([
    * @param {string} color A valid canvas color string
    * @param {number} x
    * @param {number} y
-   * @param {number} height
    * @param {number} width
+   * @param {number} height
    */
-  shapes.square = function (ctx, color, x, y, height, width) {
+  shapes.square = function (ctx, color, x, y, width, height) {
     var flippedY = constants.CANVAS_HEIGHT - y
     ctx.beginPath()
     ctx.moveTo(x, flippedY - height)

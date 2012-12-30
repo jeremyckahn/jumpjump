@@ -16,7 +16,6 @@ define([
 
   /**
    * @type {{
-   *   tileOffset: number, // Conceptually the same as CSS's margin-bottom.
    *   tileHeight: number,
    *   tileWidth: number,
    *   tileRenderers: TileRenderers
@@ -49,7 +48,7 @@ define([
         drawable.setHeight(tileMap.tileHeight)
         drawable.setWidth(tileMap.tileWidth)
         drawable.setX(tileMap.tileWidth * x)
-        drawable.setY((tileMap.tileHeight + tileMap.tileOffset) * y)
+        drawable.setY(tileMap.tileHeight * y)
 
         tiles.push(drawable)
       })
