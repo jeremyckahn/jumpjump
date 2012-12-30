@@ -1,4 +1,14 @@
-define(['exports'], function (shapes) {
+define([
+
+    'exports'
+    ,'src/constants'
+
+  ], function (
+
+    shapes
+    ,constants
+
+  ) {
   'use strict'
 
   /**
@@ -10,11 +20,12 @@ define(['exports'], function (shapes) {
    * @param {number} width
    */
   shapes.square = function (ctx, color, x, y, height, width) {
+    var flippedY = constants.CANVAS_HEIGHT - y
     ctx.beginPath()
-    ctx.moveTo(x, y - height)
-    ctx.lineTo(x, y)
-    ctx.lineTo(x + width, y)
-    ctx.lineTo(x + width, y - height)
+    ctx.moveTo(x, flippedY - height)
+    ctx.lineTo(x, flippedY)
+    ctx.lineTo(x + width, flippedY)
+    ctx.lineTo(x + width, flippedY - height)
     ctx.fillStyle = ctx.strokeStyle = color
     ctx.fill()
     ctx.stroke()

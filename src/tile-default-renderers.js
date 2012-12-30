@@ -14,8 +14,8 @@ define([
     '0': function () {}
 
     ,'1': function () {
-      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,
-          constants.CANVAS_HEIGHT - this._y, this.getHeight(), this.getWidth())
+      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x, this._y,
+        this.getHeight(), this.getWidth())
     }
 
   }
