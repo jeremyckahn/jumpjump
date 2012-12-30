@@ -14,10 +14,12 @@ define([
   var drawables = [];
 
   /**
+   * @param {CanvasRenderingContext2D} ctx
    * @constructor
    */
-  function Drawable () {
+  function Drawable (ctx) {
     drawables.push(this)
+    this._ctx = ctx
     this._x = 0
     this._y = 0
     this._height = 0
@@ -66,7 +68,7 @@ define([
     }
   }
 
-  var accessorList = ['_x', '_y', '_height', '_width']
+  var accessorList = ['_x', '_y', '_height', '_width', '_ctx']
   util.createAccessors(Drawable.prototype, accessorList)
 
   return Drawable

@@ -29,11 +29,12 @@ define([
   var TileRenderers
 
   /**
+   * @param {CanvasRenderingContext2D} ctx
    * @param {TileMap} tileMap
    * @param {TileRenderers} tileRenderers
    * @constructor
    */
-  function TileRenderer (tileMap, tileRenderers) {
+  function TileRenderer (ctx, tileMap, tileRenderers) {
     var tiles = []
 
     tileMap.map.forEach(function (row, y) {
@@ -41,7 +42,7 @@ define([
         // NOTE: One could make a Tile Object (which would inherit from
         // Drawable) instead of decorating Drawable instances, but that may be
         // OOP overkill.
-        var drawable = new Drawable
+        var drawable = new Drawable(ctx)
 
         drawable.draw = tileRenderers[tileCode]
         drawable.setHeight(tileMap.tileHeight)
@@ -55,6 +56,16 @@ define([
 
     /** @type {Array.<Drawable>} */
     this._drawables = tiles
+  }
+
+  TileRenderer.prototype = {
+    tick: function () {}
+
+    ,draw: function () {
+      this._drawables.forEach(function (drawable) {
+        drawable.draw()
+      })
+    }
   }
 
   return TileRenderer

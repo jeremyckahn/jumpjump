@@ -1,4 +1,12 @@
-define(function () {
+define([
+
+    'src/shapes'
+
+  ], function (
+
+    shapes
+
+  ) {
   tileRenderers = {
 
     '0': function () {}

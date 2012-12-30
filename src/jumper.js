@@ -22,12 +22,11 @@ define([
    * @extends {Drawable}
    */
   function Jumper (game, ctx) {
-    Drawable.call(this)
+    Drawable.call(this, ctx)
     this._vX = 0
     this._vY = 0
     this._color = constants.JUMPER_COLOR
     this._game = game
-    this._ctx = ctx
     this.setHeight(constants.JUMPER_HEIGHT)
     this.setWidth(constants.JUMPER_WIDTH)
 
