@@ -12,11 +12,14 @@ define([
   tiles = {
 
     '0': {
-      render: function () {}
+      canPass: true
+      ,render: function () {}
     }
 
     ,'1': {
-      render: function () {
+      canPass: false
+
+      ,render: function () {
         var platformHeight = 5
 
         shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,

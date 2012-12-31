@@ -31,6 +31,7 @@ define([
 
   /**
    * @typedef {{
+   *   canPass: boolean
    *   render: function
    * }}
    */
