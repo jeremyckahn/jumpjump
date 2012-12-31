@@ -71,9 +71,7 @@ define([
   }
 
   TileRenderer.prototype = {
-    tick: function () {}
-
-    ,draw: function () {
+    draw: function () {
       this._drawables.forEach(function (drawable) {
         drawable.draw()
       })
