@@ -1,12 +1,12 @@
 define([
 
     'exports'
-    ,'src/tile-default-renderers'
+    ,'src/default-tiles'
 
   ], function (
 
     util
-    ,tileDefaultRenderers
+    ,defaultTiles
 
   ) {
   'use strict'
@@ -75,7 +75,7 @@ define([
     return {
       tileHeight: 25
       ,tileWidth: 25
-      ,tileRenderers: tileDefaultRenderers
+      ,tiles: defaultTiles
       ,map:
         [[1, 1, 0, 0, 0, 0, 0, 0]
         ,[0, 0, 0, 0, 0, 0, 0, 0]]

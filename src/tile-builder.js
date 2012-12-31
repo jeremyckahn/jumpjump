@@ -18,7 +18,7 @@ define([
    * @type {{
    *   tileHeight: number,
    *   tileWidth: number,
-   *   tileRenderers: TileRenderers
+   *   tiles: Tiles
    *   map: Array.<Array.<TileCode>>
    * }}
    */
@@ -27,7 +27,7 @@ define([
   /**
    * @type {Object.<number, function>}
    */
-  var TileRenderers
+  var Tiles
 
   /**
    * @param {CanvasRenderingContext2D} ctx
@@ -56,7 +56,7 @@ define([
         // OOP overkill.
         var drawable = new Drawable(ctx)
 
-        drawable.draw = tileMap.tileRenderers[tileCode]
+        drawable.draw = tileMap.tiles[tileCode]
         drawable.setHeight(tileMap.tileHeight)
         drawable.setWidth(tileMap.tileWidth)
         drawable.setX(tileMap.tileWidth * x)

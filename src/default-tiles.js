@@ -9,7 +9,7 @@ define([
     ,shapes
 
   ) {
-  tileRenderers = {
+  tiles = {
 
     '0': function () {}
 
@@ -22,5 +22,5 @@ define([
 
   }
 
-  return /** @type {TileRenderers} */(tileRenderers)
+  return /** @type {Tiles} */(tiles)
 });
