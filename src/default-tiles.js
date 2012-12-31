@@ -11,15 +11,18 @@ define([
   ) {
   tiles = {
 
-    '0': function () {}
-
-    ,'1': function () {
-      var platformWidth = 5
-
-      shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,
-        this._y - platformWidth, this.getWidth(), platformWidth)
+    '0': {
+      render: function () {}
     }
 
+    ,'1': {
+      render: function () {
+        var platformHeight = 5
+
+        shapes.square(this._ctx, constants.DEFAULT_TILE_COLOR, this._x,
+          this._y - platformHeight, this.getWidth(), platformHeight)
+      }
+    }
   }
 
   return /** @type {Tiles} */(tiles)

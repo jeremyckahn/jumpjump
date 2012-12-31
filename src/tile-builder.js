@@ -10,12 +10,12 @@ define([
   'use strict'
 
   /**
-   * @type {number}
+   * @typedef {number}
    */
   var TileCode
 
   /**
-   * @type {{
+   * @typedef {{
    *   tileHeight: number,
    *   tileWidth: number,
    *   tiles: Tiles
@@ -25,9 +25,16 @@ define([
   var TileMap
 
   /**
-   * @type {Object.<number, function>}
+   * @typedef {Object.<number, Tile>}
    */
   var Tiles
+
+  /**
+   * @typedef {{
+   *   render: function
+   * }}
+   */
+  var Tile
 
   /**
    * @param {CanvasRenderingContext2D} ctx
@@ -56,7 +63,7 @@ define([
         // OOP overkill.
         var drawable = new Drawable(ctx)
 
-        drawable.draw = tileMap.tiles[tileCode]
+        drawable.draw = tileMap.tiles[tileCode].render
         drawable.setHeight(tileMap.tileHeight)
         drawable.setWidth(tileMap.tileWidth)
         drawable.setX(tileMap.tileWidth * x)
