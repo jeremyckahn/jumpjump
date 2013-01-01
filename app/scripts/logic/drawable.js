@@ -1,17 +1,15 @@
 define([
 
-    'logic/constants'
-    ,'logic/util'
+    'logic/util'
 
     ], function (
 
-    constants
-    ,util
+    util
 
     ) {
-  'use strict'
+  'use strict';
 
-  var drawables = [];
+  var drawables = []
 
   /**
    * @param {CanvasRenderingContext2D} ctx

@@ -7,12 +7,17 @@ define([
     Drawable
 
     ) {
-  'use strict'
+  'use strict';
+
+  /**
+   * NOTE: @typedef-ed vars are commented out to make JSHint happy.  They are
+   * here as documentation.
+   */
 
   /**
    * @typedef {number}
    */
-  var TileCode
+  //var TileCode
 
   /**
    * @typedef {{
@@ -22,12 +27,12 @@ define([
    *   map: Array.<Array.<TileCode>>
    * }}
    */
-  var TileMap
+  //var TileMap
 
   /**
    * @typedef {Object.<number, Tile>}
    */
-  var Tiles
+  //var Tiles
 
   /**
    * @typedef {{
@@ -35,7 +40,7 @@ define([
    *   render: function
    * }}
    */
-  var Tile
+  //var Tile
 
   /**
    * @param {CanvasRenderingContext2D} ctx

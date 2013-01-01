@@ -1,5 +1,5 @@
 define(function () {
-  'use strict'
+  'use strict';
 
   return {
     CANVAS_HEIGHT: 500

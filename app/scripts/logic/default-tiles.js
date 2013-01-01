@@ -9,7 +9,9 @@ define([
     ,shapes
 
   ) {
-  tiles = {
+  'use strict';
+
+  var tiles = {
 
     '0': {
       canPass: true

@@ -9,7 +9,7 @@ define([
     ,util
 
       ) {
-  'use strict'
+  'use strict';
 
   /**
    * @param {Game} game

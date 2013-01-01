@@ -9,7 +9,7 @@ define([
     ,constants
 
   ) {
-  'use strict'
+  'use strict';
 
   /**
    * @param {CanvasRenderingContext2D} ctx

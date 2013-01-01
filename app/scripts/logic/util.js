@@ -9,7 +9,7 @@ define([
     ,defaultTiles
 
   ) {
-  'use strict'
+  'use strict';
 
   /**
    * @param {string} getOrSet Must be either 'get' or 'set'
@@ -20,7 +20,7 @@ define([
   }
 
   util.now = function () {
-    return +(new Date)
+    return +(new Date())
   }
 
   /**
@@ -28,9 +28,9 @@ define([
    * @param {Object} parent
    */
   util.inherit = function (child, parent) {
-    var proxy = function () {}
-    proxy.prototype = parent.prototype
-    child.prototype = new proxy
+    var Proxy = function () {}
+    Proxy.prototype = parent.prototype
+    child.prototype = new Proxy()
     child.prototype.constructor = child
   }
 

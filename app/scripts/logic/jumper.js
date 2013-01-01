@@ -13,7 +13,7 @@ define([
     ,Drawable
 
       ) {
-  'use strict'
+  'use strict';
 
   /**
    * @param {Game} game

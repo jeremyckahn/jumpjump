@@ -9,7 +9,7 @@ define([
     ,VersionedImage
 
       ) {
-  'use strict'
+  'use strict';
 
   /**
    * @param {Game} game

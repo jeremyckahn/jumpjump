@@ -19,7 +19,7 @@ module.exports = function( grunt ) {
     coffee: {
       compile: {
         files: {
-          'temp/scripts/*.js': 'app/scripts/**/*.coffee' 
+          'temp/scripts/*.js': 'app/scripts/**/*.coffee'
         },
         options: {
           basePath: 'app/scripts'
@@ -77,32 +77,37 @@ module.exports = function( grunt ) {
     // default lint configuration, change this to match your setup:
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
     lint: {
+      options: {
+        options: {
+          asi: true,
+          boss: true,
+          browser: true,
+          curly: true,
+          eqeqeq: true,
+          eqnull: true,
+          immed: true,
+          lastsemic: true,
+          latedef: true,
+          laxbreak: true,
+          laxcomma: true,
+          newcap: true,
+          noarg: true,
+          sub: true,
+          undef: true
+        },
+        globals: {
+          _: true,
+          console: true,
+          Image: true,
+          module: true,
+          define: true
+        }
+      },
       files: [
         'Gruntfile.js',
-        'app/scripts/**/*.js',
+        'app/scripts/logic/*.js',
         'spec/**/*.js'
       ]
-    },
-
-    // specifying JSHint options and globals
-    // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#specifying-jshint-options-and-globals
-    jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        browser: true
-      },
-      globals: {
-        jQuery: true
-      }
     },
 
     // Build configuration
