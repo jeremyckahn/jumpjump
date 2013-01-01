@@ -1,0 +1,25 @@
+{
+  "predef": {
+    "_": true,
+    "console": true,
+    "Image": true,
+    "module": true,
+    "define": true
+  },
+
+  "asi": true,
+  "boss": true,
+  "browser": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "immed": true,
+  "lastsemic": true,
+  "latedef": true,
+  "laxbreak": true,
+  "laxcomma": true,
+  "newcap": true,
+  "noarg": true,
+  "sub": true,
+  "undef": true
+}
