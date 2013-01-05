@@ -47,8 +47,8 @@ module.exports = function( grunt ) {
     },
 
     // headless testing through PhantomJS
-    mocha: {
-      all: ['test/**/*.html']
+    qunit: {
+      files: ['test/*.html']
     },
 
     // default watch configuration
@@ -188,7 +188,6 @@ module.exports = function( grunt ) {
     }
   });
 
-  // Alias the `test` task to run the `mocha` task instead
-  grunt.registerTask('test', 'server:phantom mocha');
+  grunt.registerTask('test', 'qunit');
 
 };
