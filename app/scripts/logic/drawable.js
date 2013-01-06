@@ -35,8 +35,8 @@ define([
       // http://stackoverflow.com/questions/2752349/fast-rectangle-to-rectangle-intersection/2752387#2752387
       return !(drawable2._x > drawable1.getRight() ||
              drawable2.getRight() < drawable1._x ||
-             drawable2.getTop() > drawable1._y ||
-             drawable2._y < drawable1.getTop())
+             drawable2.getTop() < drawable1._y ||
+             drawable2._y > drawable1.getTop())
     }
   })
 
