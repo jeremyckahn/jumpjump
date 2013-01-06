@@ -1,3 +1,4 @@
+/*global webkitRequestAnimationFrame:true */
 define([
 
     'logic/constants'
@@ -19,7 +20,7 @@ define([
     ,TileBuilder
 
       ) {
-  'use strict'
+  'use strict';
 
 
   /**
@@ -27,6 +28,12 @@ define([
    */
   function Game () {
     var canvas = document.getElementById('jump')
+    if (!canvas) {
+      console.warn(
+          'No canvas present. Setup aborting; app is in testing mode.')
+      return
+    }
+
     this._keysDown = {}
     this._lockedKeys = {}
     this._ctx = canvas.getContext('2d')
@@ -37,7 +44,7 @@ define([
     this._isPaused = false
     this._background = new Background(this, this._ctx)
     this._jumper = new Jumper(this, this._ctx)
-    this._viewport = new Viewport
+    this._viewport = new Viewport()
     // TODO: Put this somewhere more reasonable - this is just a test.
     this._tileBuilder = new TileBuilder(this._ctx, util.getSampleMapData())
     this._tick()
@@ -65,8 +72,8 @@ define([
     }
 
     ,_onKeyUp: function (evt) {
-      delete this._keysDown[evt.keyCode]
-      delete this._lockedKeys[evt.keyCode]
+      delete this._keysDown[evt.keyCode];
+      delete this._lockedKeys[evt.keyCode];
 
       if (evt.keyCode === constants.KEY_P) {
         this.togglePause()
