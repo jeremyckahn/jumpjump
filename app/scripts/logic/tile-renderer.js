@@ -93,8 +93,8 @@ define([
      * pointY.
      */
     ,getTileForPoint: function (pointX, pointY) {
-      if (pointX < 0 || pointX > (this._tileHeight * this._tileGridRows)
-        || pointY < 0 || pointY > (this._tileWidth * this._tileGridColumns)) {
+      if (pointX < 0 || pointX > (this._tileHeight * this._tileGridColumns)
+        || pointY < 0 || pointY > (this._tileWidth * this._tileGridRows)) {
         return null
       }
 

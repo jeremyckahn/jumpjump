@@ -22,8 +22,8 @@ require([
     ,tileWidth: 25
     ,tiles: defaultTiles
     ,map:
-      [[1, 0, 0, 0, 0, 0, 0, 0]
-      ,[0, 0, 0, 0, 0, 0, 0, 0]]
+      [[1, 0, 0, 0]
+      ,[0, 0, 0, 0]]
   }
 
   module('TileRenderer#getTileForPoint')
@@ -34,5 +34,13 @@ require([
     var tile = t1.getTileForPoint(0, 0)
 
     notEqual(null, tile, 'Retrieved a Tile')
+  })
+
+  test('Out-of-bounds query retrieves nothing',
+      function () {
+    var t1 = new TileRenderer(ctx, mockMapData)
+    var tile = t1.getTileForPoint(0, 51)
+
+    equal(null, tile, 'Retrieved nothing')
   })
 });
