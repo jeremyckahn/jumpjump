@@ -25,11 +25,12 @@ define([
     this._tileGridRows = tileMap.map.length
     /** @type {number} */
     this._tileGridColumns = tileMap.map[0].length
-
+    /** @type {TileRenderer.Tiles} */
+    this._tiles = tileMap.tiles
     /** @type {Array.<Array.<TileRenderer.TileCode>>} */
-    this._tiles = tileMap.map
+    this._map = tileMap.map.reverse()
 
-    tileMap.map.reverse().forEach(function (row, y) {
+    this._map.forEach(function (row, y) {
       row.forEach(function (tileCode, x) {
         // NOTE: One could make a Tile Object (which would inherit from
         // Drawable) instead of decorating Drawable instances, but that may be
@@ -103,7 +104,7 @@ define([
       var xCoord = parseInt(intPointX / this._tileWidth, 10)
       var yCoord = parseInt(intPointY / this._tileHeight, 10)
 
-      return this._tiles[yCoord][xCoord]
+      return this._tiles[this._map[yCoord][xCoord]]
     }
   }
 

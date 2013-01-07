@@ -25,6 +25,16 @@ require([
       [[1, 0, 0, 0]
       ,[0, 0, 0, 0]]
   }
+  var mockTiles = {
+    '0': {
+      canPass: true
+      ,render: function () {}
+    }
+    ,'1': {
+      canPass: false
+      ,render: function () {}
+    }
+  }
 
   module('TileRenderer#getTileForPoint')
 
@@ -42,5 +52,15 @@ require([
     var tile = t1.getTileForPoint(0, 51)
 
     equal(null, tile, 'Retrieved nothing')
+  })
+
+  test('Tile passability',
+      function () {
+    var t1 = new TileRenderer(ctx, mockMapData)
+    var passableTile = t1.getTileForPoint(0, 0)
+    var unpassableTile = t1.getTileForPoint(0, 25)
+
+    equal(passableTile.canPass, true, 'Gets passable tile')
+    equal(unpassableTile.canPass, false, 'Gets unpassable tile')
   })
 });
