@@ -4,7 +4,15 @@ global equal:true
 global notEqual:true
 global require:true
 */
-require(['app'], function(Game) {
+require([
+
+  'app'
+
+  ], function(
+
+  Game
+
+  ) {
 
   var ctx = document.createElement('canvas').getContext('2d')
 
@@ -14,3 +22,5 @@ require(['app'], function(Game) {
       function () {
   })
 });" > $1.js
+
+echo "Generated $1 spec boilerplate.  Remember to require it in the test runner!"

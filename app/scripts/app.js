@@ -137,6 +137,14 @@ define([
       this._lockedKeys[keyCode] = true
     }
 
+    /**
+     * @param {Drawable} drawable
+     * @return {Drawable|null}
+     */
+    ,getCollidingDrawable: function (drawable) {
+      return null
+    }
+
   }
 
   return Game

@@ -104,6 +104,13 @@ define([
     }
 
     /**
+     * @param {?Drawable} collidingDrawable
+     */
+    ,_computeYPosition: function (collidingDrawable) {
+      this._y = Math.max(this._y + this._vY, 0)
+    }
+
+    /**
      * @param {number} delta Number of milliseconds since last tick
      */
     ,_applyJumpForce: function (delta) {
@@ -130,8 +137,7 @@ define([
       }
 
       this._applyGravity(delta)
-
-      this._y = Math.max(this._y + this._vY, 0)
+      this._computeYPosition(this._game.getCollidingDrawable(this))
     }
 
     /**
