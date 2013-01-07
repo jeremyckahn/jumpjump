@@ -17,6 +17,7 @@ require([
 
   var ctx = document.createElement('canvas').getContext('2d')
   var TileRenderer = require('logic/tile-renderer')
+  var Jumper = require('logic/jumper')
 
   var mockRenderer =  new TileRenderer(ctx, {
       tileHeight: 25
@@ -27,10 +28,18 @@ require([
         ,[0, 0]]
     })
 
-  module('Game#getCollidingDrawable')
+  module('Game#getCollidingTile')
 
-  test('getCollidingDrawable gets colliding tile',
+  test('getCollidingTile gets colliding tile',
       function () {
-    ok(1)
+    var g = new Game()
+    var j = new Jumper()
+    j.setX(0)
+    j.setY(25)
+    g._platformTiles = mockRenderer
+    var tile = g.getCollidingTile(j)
+
+    equal('boolean', typeof tile.canPass,
+      'Got a tile')
   })
 });

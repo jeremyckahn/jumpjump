@@ -72,6 +72,7 @@ define([
    * @return {TileRenderer.TileMap}
    */
   util.getSampleMapData = function () {
+    console.warn('Using a development-only method.')
     return {
       tileHeight: 25
       ,tileWidth: 25

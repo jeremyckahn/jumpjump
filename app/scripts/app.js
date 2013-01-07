@@ -45,8 +45,7 @@ define([
     this._background = new Background(this, this._ctx)
     this._jumper = new Jumper(this, this._ctx)
     this._viewport = new Viewport()
-    // TODO: Put this somewhere more reasonable - this is just a test.
-    this._tileRenderer = new TileRenderer(this._ctx, util.getSampleMapData())
+    this._initTiles()
     this._tick()
   }
 
@@ -65,6 +64,11 @@ define([
       body.addEventListener('keydown', _.bind(this._onKeyDown, this))
       body.addEventListener('keyup', _.bind(this._onKeyUp, this))
       window.addEventListener('blur', _.bind(this._onWindowBlur, this))
+    }
+
+    ,_initTiles: function () {
+      this._platformTiles =
+        new TileRenderer(this._ctx, util.getSampleMapData())
     }
 
     ,_onKeyDown: function (evt) {
@@ -115,7 +119,7 @@ define([
       var viewport = this._viewport
 
       this._background.draw(viewport)
-      this._tileRenderer.draw()
+      this._platformTiles.draw()
       this._jumper.draw()
     }
 
@@ -139,10 +143,11 @@ define([
 
     /**
      * @param {Drawable} drawable
-     * @return {Drawable|null}
+     * @return {TileRenderer.Tile|null}
      */
-    ,getCollidingDrawable: function (drawable) {
-      return null
+    ,getCollidingTile: function (drawable) {
+      return this._platformTiles.getTileForPoint(
+          drawable.getX(), drawable.getY())
     }
 
   }

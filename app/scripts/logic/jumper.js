@@ -137,7 +137,7 @@ define([
       }
 
       this._applyGravity(delta)
-      this._computeYPosition(this._game.getCollidingDrawable(this))
+      this._computeYPosition(this._game.getCollidingTile(this))
     }
 
     /**
