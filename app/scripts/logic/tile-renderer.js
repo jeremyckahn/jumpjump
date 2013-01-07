@@ -107,7 +107,7 @@ define([
       var xCoord = parseInt(intPointX / this._tileWidth, 10)
       var yCoord = parseInt(intPointY / this._tileHeight, 10)
 
-      return this._tile[yCoord][xCoord]
+      return this._tiles[yCoord][xCoord]
     }
   }
 

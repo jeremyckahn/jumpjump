@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "/*global test:true
 global equal:true
+global notEqual:true
 global require:true
 */
 require(['app'], function(Game) {
