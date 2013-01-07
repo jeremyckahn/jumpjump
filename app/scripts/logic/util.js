@@ -69,7 +69,7 @@ define([
 
   /**
    * Development utility method.
-   * @return {TileMap}
+   * @return {TileRenderer.TileMap}
    */
   util.getSampleMapData = function () {
     return {

@@ -10,41 +10,8 @@ define([
   'use strict';
 
   /**
-   * NOTE: @typedef-ed vars are commented out to make JSHint happy.  They are
-   * here as documentation.
-   */
-
-  /**
-   * @typedef {number}
-   */
-  //var TileCode
-
-  /**
-   * @typedef {{
-   *   tileHeight: number,
-   *   tileWidth: number,
-   *   tiles: Tiles
-   *   map: Array.<Array.<TileCode>>
-   * }}
-   */
-  //var TileMap
-
-  /**
-   * @typedef {Object.<number, Tile>}
-   */
-  //var Tiles
-
-  /**
-   * @typedef {{
-   *   canPass: boolean
-   *   render: function
-   * }}
-   */
-  //var Tile
-
-  /**
    * @param {CanvasRenderingContext2D} ctx
-   * @param {TileMap} tileMap
+   * @param {TileRenderer.TileMap} tileMap
    * @constructor
    */
   function TileRenderer (ctx, tileMap) {
@@ -59,7 +26,7 @@ define([
     /** @type {number} */
     this._tileGridColumns = tileMap.map[0].length
 
-    /** @type {Array.<Array.<TileCode>>} */
+    /** @type {Array.<Array.<TileRenderer.TileCode>>} */
     this._tiles = tileMap.map
 
     tileMap.map.reverse().forEach(function (row, y) {
@@ -82,6 +49,35 @@ define([
     /** @type {Array.<Drawable>} */
     this._drawables = tiles
   }
+
+  /**
+   * @typedef {number}
+   */
+  //TileRenderer.TileCode
+
+  /**
+   * @typedef {{
+   *   tileHeight: number,
+   *   tileWidth: number,
+   *   tiles: Tiles
+   *   map: Array.<Array.<TileRenderer.TileCode>>
+   * }}
+   */
+  //TileRenderer.TileMap
+
+  /**
+   * @typedef {Object.<number, TileRenderer.Tile>}
+   */
+  //TileRenderer.Tiles
+
+  /**
+   * @typedef {{
+   *   canPass: boolean
+   *   render: function
+   * }}
+   */
+  //TileRenderer.Tile
+
 
   TileRenderer.prototype = {
     draw: function () {

@@ -30,5 +30,5 @@ define([
     }
   }
 
-  return /** @type {Tiles} */(tiles)
+  return /** @type {TileRenderer.Tiles} */(tiles)
 });
