@@ -7,6 +7,30 @@ require(['app'], function(Game) {
   var ctx = document.createElement('canvas').getContext('2d')
   var Drawable = require('logic/drawable')
 
+  module('Drawable#getTop/Right')
+
+  test('Drawable#getRight gets the right side of the Drawable',
+      function () {
+    var d1 = new Drawable(ctx)
+    d1.setX(100)
+    d1.setY(100)
+    d1.setHeight(100)
+    d1.setWidth(100)
+
+    equal(d1.getRight(), 200, 'The right side was computed correctly')
+  })
+
+  test('Drawable#getTop gets the top side of the Drawable',
+      function () {
+    var d1 = new Drawable(ctx)
+    d1.setX(100)
+    d1.setY(100)
+    d1.setHeight(100)
+    d1.setWidth(100)
+
+    equal(d1.getTop(), 200, 'The top side was computed correctly')
+  })
+
   module('Drawable.areIntersecting')
 
   test('Drawable.areIntersecting is true when two Drawables collide',
