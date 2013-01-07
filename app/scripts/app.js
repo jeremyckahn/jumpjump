@@ -7,7 +7,7 @@ define([
     ,'logic/drawable'
     ,'logic/jumper'
     ,'logic/viewport'
-    ,'logic/tile-builder'
+    ,'logic/tile-renderer'
 
     ], function (
 
@@ -17,7 +17,7 @@ define([
     ,Drawable
     ,Jumper
     ,Viewport
-    ,TileBuilder
+    ,TileRenderer
 
       ) {
   'use strict';
@@ -46,7 +46,7 @@ define([
     this._jumper = new Jumper(this, this._ctx)
     this._viewport = new Viewport()
     // TODO: Put this somewhere more reasonable - this is just a test.
-    this._tileBuilder = new TileBuilder(this._ctx, util.getSampleMapData())
+    this._tileRenderer = new TileRenderer(this._ctx, util.getSampleMapData())
     this._tick()
   }
 
@@ -115,7 +115,7 @@ define([
       var viewport = this._viewport
 
       this._background.draw(viewport)
-      this._tileBuilder.draw()
+      this._tileRenderer.draw()
       this._jumper.draw()
     }
 
