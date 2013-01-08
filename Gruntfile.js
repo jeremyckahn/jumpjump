@@ -192,7 +192,7 @@ module.exports = function( grunt ) {
 
   grunt.registerTask('test', 'qunit');
 
-  grunt.registerTask('spec', function () {
+  grunt.registerTask('spec', 'Scoffolds a spec in test/spec.', function () {
     var specName = grunt.option('name')
 
     if (!specName) {
@@ -201,7 +201,7 @@ module.exports = function( grunt ) {
       return
     }
 
-    _exec('cd ./test/spec/ && sh new-spec.sh ' + specName)
+    _exec('sh ./test/spec/new-spec.sh ' + specName)
   });
 
 };

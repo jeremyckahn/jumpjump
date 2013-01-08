@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# cd into the directory this script is stored in.
+# Stole this line from: http://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR
+
 echo "/*global ok:true
 global test:true
 global equal:true
@@ -26,3 +32,4 @@ require([
 });" > $1.js
 
 echo "Generated $1 spec boilerplate.  Remember to require it in the test runner!"
+cd -
