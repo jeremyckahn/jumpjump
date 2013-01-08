@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "/*global test:true
+echo "/*global ok:true
+global test:true
 global equal:true
 global notEqual:true
 global require:true

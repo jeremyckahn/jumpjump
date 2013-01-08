@@ -1,3 +1,5 @@
+var _exec = require('child_process').exec
+
 module.exports = function( grunt ) {
   'use strict';
   //
@@ -189,5 +191,17 @@ module.exports = function( grunt ) {
   });
 
   grunt.registerTask('test', 'qunit');
+
+  grunt.registerTask('spec', function () {
+    var specName = grunt.option('name')
+
+    if (!specName) {
+      console.error('You need to specify a spec name! Like this:')
+      console.error('  yeoman spec --name <spec_name>')
+      return
+    }
+
+    _exec('cd ./test/spec/ && sh new-spec.sh ' + specName)
+  });
 
 };
